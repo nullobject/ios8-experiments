@@ -1,0 +1,13 @@
+PODS:
+  - pop (1.0.7)
+  - RBBAnimation (0.3.0)
+
+DEPENDENCIES:
+  - pop (~> 1.0.7)
+  - RBBAnimation (~> 0.3.0)
+
+SPEC CHECKSUMS:
+  pop: 2f14a1ea61339767af9e66741b418c831b3844df
+  RBBAnimation: 243d73be1a526f1b51d266b182e4aa0cfe9cbf64
+
+COCOAPODS: 0.35.0

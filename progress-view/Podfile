@@ -1,0 +1,7 @@
+target 'ProgressTest' do
+  pod 'pop', '~> 1.0.7'
+  pod 'RBBAnimation', '~> 0.3.0'
+end
+
+target 'ProgressTestTests' do
+end
