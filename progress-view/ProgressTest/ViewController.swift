@@ -9,7 +9,7 @@
 import UIKit
 
 public extension MyLayer {
-  override class func needsDisplayForKey(key: String!) -> Bool {
+  override class func needsDisplayForKey(key: String) -> Bool {
     switch key {
     case "value":
       return true
@@ -20,11 +20,11 @@ public extension MyLayer {
     }
   }
 
-  override func actionForKey(key: String!) -> CAAction! {
+  override func actionForKey(key: String) -> CAAction? {
     switch key {
     case "value":
       let animation = CABasicAnimation(keyPath: key)
-      animation.fromValue = (self.presentationLayer() as CALayer).valueForKey(key)
+      animation.fromValue = (self.presentationLayer() as! CALayer).valueForKey(key)
 //      let animation = RBBSpringAnimation(keyPath: key)
 //      animation.fromValue = 0
 //      animation.toValue = 1
@@ -34,7 +34,7 @@ public extension MyLayer {
     }
   }
 
-  override func drawInContext(ctx: CGContext!) {
+  override func drawInContext(ctx: CGContext) {
     super.drawInContext(ctx)
 
     UIGraphicsPushContext(ctx)
@@ -42,7 +42,7 @@ public extension MyLayer {
     UIGraphicsPopContext()
   }
 
-  func drawProgressView(#color: UIColor, size: CGSize, value: CGFloat) {
+  func drawProgressView(color color: UIColor, size: CGSize, value: CGFloat) {
     //// Variable Declarations
     let radius: CGFloat = size.height / 2.0
     let innerSize = CGSizeMake(size.width * max(min(value, 1), 0), size.height)
@@ -66,7 +66,7 @@ public extension MyLayer {
 }
 
 class ProgressView: UIView {
-  required init(coder: NSCoder) {
+  required init?(coder: NSCoder) {
     super.init(coder: coder)
     progressLayer.needsDisplayOnBoundsChange = true
     progressLayer.contentsScale = UIScreen.mainScreen().scale
@@ -75,7 +75,7 @@ class ProgressView: UIView {
 
   var progressLayer: MyLayer {
     get {
-      return layer as MyLayer
+      return layer as! MyLayer
     }
   }
 
@@ -93,15 +93,15 @@ class ProgressView: UIView {
     get {
       return POPAnimatableProperty.propertyWithName("value", initializer: { (property: POPMutableAnimatableProperty!) in
         property.readBlock = { (view, values) in
-          let progressView = view as ProgressView
+          let progressView = view as! ProgressView
           values[0] = progressView.value
         }
         property.writeBlock = { (view, values) in
-          let progressView = view as ProgressView
+          let progressView = view as! ProgressView
           progressView.value = values[0]
         }
         property.threshold = 0.01
-      }) as POPAnimatableProperty
+      }) as! POPAnimatableProperty
     }
   }
 }
